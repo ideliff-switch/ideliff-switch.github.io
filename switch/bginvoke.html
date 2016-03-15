@@ -96,11 +96,12 @@
         var returnURL;
         
     function onload_event(){
+        
         returnURL = getQueryVariable("callback");
         
         setTimeout(function () {
             var doneButton = document.getElementById("button");
-            hangoutButton.click();
+            doneButton.click();
         }, 3000);
     }
     
