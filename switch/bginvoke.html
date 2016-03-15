@@ -81,6 +81,9 @@
                 
                 This page is invoked from iOS safari view controller in background.
                 
+                <article id="button" onclick="return done_clicked()">
+                    <h2> Done </h2>
+                </article>
             </article>
         </section>
         
@@ -92,12 +95,19 @@
     <script>
         var returnURL;
         
-        function onload_event(){
-            returnURL = getQueryVariable("callback");
-            setTimeout(function () {
-                window.location.href = returnURL;
-            }, 3000);
-        }
+    function onload_event(){
+        returnURL = getQueryVariable("callback");
+        
+        setTimeout(function () {
+            var doneButton = document.getElementById("button");
+            hangoutButton.click();
+        }, 3000);
+    }
+    
+    function done_clicked()
+    {
+        window.location.href = "wallet.html";
+    }
     
     function getQueryVariable(variable)
     {
