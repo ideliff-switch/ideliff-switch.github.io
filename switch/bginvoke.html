@@ -81,7 +81,7 @@
                 
                 This page is invoked from iOS safari view controller in background.
                 
-                <button id="button" onclick="return done_clicked()">done</button>
+                <button id="buttond" onclick="return done_clicked()">done</button>
             </article>
         </section>
         
@@ -98,7 +98,7 @@
         returnURL = getQueryVariable("callback");
         
         setTimeout(function () {
-            var doneButton = document.getElementById("button");
+            var doneButton = document.getElementById("buttond");
             doneButton.click();
         }, 3000);
     }
