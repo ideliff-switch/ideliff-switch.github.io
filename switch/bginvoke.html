@@ -99,8 +99,18 @@
         
         setTimeout(function () {
             var doneButton = document.getElementById("buttond");
-            doneButton.click(doneButton);
+                   eventFire(doneButton, 'click');
         }, 3000);
+    }
+    
+    function eventFire(el, etype){
+        if (el.fireEvent) {
+            el.fireEvent('on' + etype);
+        } else {
+            var evObj = document.createEvent('Events');
+            evObj.initEvent(etype, true, false);
+            el.dispatchEvent(evObj);
+        }
     }
     
     function done_clicked()
