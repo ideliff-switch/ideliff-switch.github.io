@@ -4,15 +4,15 @@
         "details": [
             {
                 "appID": "F443QFT36E.com.mastercard.test.testmpwallet",
-                "paths": [ "/","/apptoapp/wallet/wallet1","apptoapp/wallet/wallet1/*"]
+                "paths": [ "/","/apptoapp.io/wallet/wallet1","apptoapp.io/wallet/wallet1/*"]
             },
             {
                 "appID": "F443QFT36E.com.mastercard.test.testmpwallet1",
-                "paths": [ "/","/apptoapp/wallet/wallet2","apptoapp/wallet/wallet2/*"]
+                "paths": [ "/","/apptoapp.io/wallet/wallet2","apptoapp.io/wallet/wallet2/*"]
             },
             {
                 "appID": "F443QFT36E.com.mastercard.test.testmpmerchant",
-                "paths": [ "/","/apptoapp/mpmerchant","apptoapp/mpmerchant/*"]
+                "paths": [ "/","/apptoapp.io/mpmerchant","apptoapp.io/mpmerchant/*"]
             }
         ]
     }
