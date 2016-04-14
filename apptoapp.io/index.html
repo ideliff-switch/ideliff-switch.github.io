@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Merchant App Demo</title>
+
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+
+	<script type="text/javascript" src="jquery.js"></script>
+	<script>
+	function loadWallets(){
+		var wallet1Id = "masterpass.wallet3";
+		var wallet2Id = "masterpass.wallet4";
+
+		//delete the username cookies if they exists.
+		deleteCookie();
+		document.cookie = "wallets="+wallet1Id+","+wallet2Id+";max-age=3600;" + ";domain=.cmgabriel.github.io;secure;path=/";
+		location.reload();
+
+	}
+
+	function getCookie(cname) {
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0; i<ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') c = c.substring(1);
+	        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+	    }
+	    return "";
+	}
+
+	function deleteCookie(){
+		var username = getCookie("username");
+
+		if(username != ""){
+			document.cookie = "username=;secure;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+		}
+	}
+
+	function getParameterByName(name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+
+
+	$(document).ready(function(){
+
+		//document.cookie = "wallets=;expires=Thu, 01 Jan 1970 00:00:00 UTC;" + ";.domain=cmgabriel.github.io;secure;path=/";
+
+		var c = document.cookie;
+		var appredirectLink = "mpmerchant://?wallets=";
+		var baselocation = "https://cmgabriel.github.io/";
+		var walletRedirectLink = "mpwallet1://";
+
+		//check for the wallet name
+		var walletName = getParameterByName("walletname",location.href);
+		var preferredWalletName = getParameterByName("pwallet",location.href);
+
+		if(walletName != undefined && walletName != null && walletName != "") {
+			//check if the cookie exists then append else create a new cookie to store the information.
+
+			console.log("inside wallet logic");
+
+			if(getCookie("wallets") != "" && getCookie("wallets") != null) {
+				console.log("wallet cookie exists");
+
+				var cookieVal = getCookie("wallets");
+
+				if (!(cookieVal.indexOf(walletName) != -1)) {
+					console.log("wallet name does not exist in cookie, adding to cookie");
+
+					cookieVal += ","+walletName;
+
+					console.log("setting to " + cookieVal);
+
+					document.cookie = "wallets="+cookieVal + ";domain=.cmgabriel.github.io;secure;path=/;expires=Thu, 01 Jan 2017 00:00:00 UTC;";
+				} else {
+					console.log("wallet name exists in cookie, no update");
+				}
+			} else {
+				console.log("setting the cookie when there is no cookie");
+
+				document.cookie = "wallets=" + walletName + ";domain=.cmgabriel.github.io;secure;path=/;expires=Thu, 01 Jan 2017 00:00:00 UTC;";
+			}
+
+			console.log("going to redirect to different url " + walletRedirectLink);
+			window.location = walletRedirectLink + getCookie("wallets");
+		} else if(preferredWalletName != undefined && preferredWalletName != null && preferredWalletName != ""){
+				
+				console.log("setting the preferred wallet cookie");
+
+				document.cookie = "pwallet="+ preferredWalletName + ";domain=.cmgabriel.github.io;secure;path=/;expires=Thu, 01 Jan 2017 00:00:00 UTC;";
+
+				window.location = walletRedirectLink + getCookie("pwallet");
+			}
+		else {
+			console.log("not a wallet use case");
+		}
+
+		if(location.search.match(/redirect/)) {
+			console.log("merchant redirect");
+
+			//Add the values from cookie to the link to be read.
+			cookieVal = "";
+			cookieVal = getCookie("wallets");
+			
+			// TODO:
+			//get the preferred wallet cookie and set it in the data.
+			//
+
+			var pWalletCookieVal = getCookie('pwallet');
+
+			var modifiedRedirectLink = appredirectLink;
+
+
+			var paraEl = document.getElementById("walletinfo");
+
+			if(paraEl != undefined || paraEl != null){
+				paraEl.innerHTML = document.cookie;
+			}
+
+			
+			if(cookieVal != "" && cookieVal != null){
+				modifiedRedirectLink += cookieVal; // + "&time=" + Date();
+			}
+
+			if(pWalletCookieVal != "" && pWalletCookieVal != null){
+				modifiedRedirectLink += "&"+pWalletCookieVal;	
+			}
+
+			//modifiedRedirectLink += "wallet444";
+
+			console.log("redirect string = " + modifiedRedirectLink);
+
+			window.location = modifiedRedirectLink;
+		} else if(location.search.match(/cleanup/)) {
+			console.log("cookie cleanup");
+
+			document.cookie = "wallets=;domain=.cmgabriel.github.io;secure;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+			document.cookie = "pwallet=;domain=.cmgabriel.github.io;secure;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+		} else {
+			console.log("catch all page load");
+
+			window.onload = function() {
+				var paraEl = document.getElementById("walletinfo");
+
+				if(paraEl != undefined || paraEl != null){
+					paraEl.innerHTML = document.cookie;
+				}
+			}
+		}
+	});
+	</script>
+</head>
+<body>
+
+<!--input type="text" id="name"> -->
+<input type="submit" value="Load Wallets" onclick="loadWallets();">
+<p id="walletinfo">
+
+<!--a href="http://localhost:8888/merchantDemo/?username=WalletA">WalletA</a><br/>
+<a href="http://localhost:8888/merchantDemo/?username=WalletB">WalletB</a-->
+</p>
+<a href="https://cmgabriel.github.io/wallet/wallet1">Link to wallet 1 app</a>
+</body>
+</html>
