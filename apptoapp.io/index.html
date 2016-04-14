@@ -15,7 +15,7 @@
 
 		//delete the username cookies if they exists.
 		deleteCookie();
-		document.cookie = "wallets="+wallet1Id+","+wallet2Id+";max-age=3600;" + ";domain=.cmgabriel.github.io;secure;path=/";
+		document.cookie = "wallets="+wallet1Id+","+wallet2Id+";max-age=3600;" + ";domain=.ideliff-switch.github.io;secure;path=/";
 		location.reload();
 
 	}
@@ -52,11 +52,11 @@
 
 	$(document).ready(function(){
 
-		//document.cookie = "wallets=;expires=Thu, 01 Jan 1970 00:00:00 UTC;" + ";.domain=cmgabriel.github.io;secure;path=/";
+		//document.cookie = "wallets=;expires=Thu, 01 Jan 1970 00:00:00 UTC;" + ";.domain=ideliff-switch.github.io;secure;path=/";
 
 		var c = document.cookie;
 		var appredirectLink = "mpmerchant://?wallets=";
-		var baselocation = "https://cmgabriel.github.io/";
+		var baselocation = "https://ideliff-switch.github.io/";
 		var walletRedirectLink = "mpwallet1://";
 
 		//check for the wallet name
@@ -80,14 +80,14 @@
 
 					console.log("setting to " + cookieVal);
 
-					document.cookie = "wallets="+cookieVal + ";domain=.cmgabriel.github.io;secure;path=/;expires=Thu, 01 Jan 2017 00:00:00 UTC;";
+					document.cookie = "wallets="+cookieVal + ";domain=.ideliff-switch.github.io;secure;path=/;expires=Thu, 01 Jan 2017 00:00:00 UTC;";
 				} else {
 					console.log("wallet name exists in cookie, no update");
 				}
 			} else {
 				console.log("setting the cookie when there is no cookie");
 
-				document.cookie = "wallets=" + walletName + ";domain=.cmgabriel.github.io;secure;path=/;expires=Thu, 01 Jan 2017 00:00:00 UTC;";
+				document.cookie = "wallets=" + walletName + ";domain=.ideliff-switch.github.io;secure;path=/;expires=Thu, 01 Jan 2017 00:00:00 UTC;";
 			}
 
 			console.log("going to redirect to different url " + walletRedirectLink);
@@ -96,7 +96,7 @@
 				
 				console.log("setting the preferred wallet cookie");
 
-				document.cookie = "pwallet="+ preferredWalletName + ";domain=.cmgabriel.github.io;secure;path=/;expires=Thu, 01 Jan 2017 00:00:00 UTC;";
+				document.cookie = "pwallet="+ preferredWalletName + ";domain=.ideliff-switch.github.io;secure;path=/;expires=Thu, 01 Jan 2017 00:00:00 UTC;";
 
 				window.location = walletRedirectLink + getCookie("pwallet");
 			}
@@ -143,8 +143,8 @@
 		} else if(location.search.match(/cleanup/)) {
 			console.log("cookie cleanup");
 
-			document.cookie = "wallets=;domain=.cmgabriel.github.io;secure;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-			document.cookie = "pwallet=;domain=.cmgabriel.github.io;secure;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+			document.cookie = "wallets=;domain=.ideliff-switch.github.io;secure;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+			document.cookie = "pwallet=;domain=.ideliff-switch.github.io;secure;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
 		} else {
 			console.log("catch all page load");
 
@@ -168,6 +168,6 @@
 <!--a href="http://localhost:8888/merchantDemo/?username=WalletA">WalletA</a><br/>
 <a href="http://localhost:8888/merchantDemo/?username=WalletB">WalletB</a-->
 </p>
-<a href="https://cmgabriel.github.io/wallet/wallet1">Link to wallet 1 app</a>
+<a href="https://ideliff-switch.github.io/wallet/wallet1">Link to wallet 1 app</a>
 </body>
 </html>
